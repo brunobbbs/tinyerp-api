@@ -1,4 +1,4 @@
-package main
+package tinyerp
 
 type TinyERP struct{}
 
