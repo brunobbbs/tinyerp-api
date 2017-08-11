@@ -1,0 +1,60 @@
+{
+  "retorno": {
+    "status_processamento": "3",
+    "status": "OK",
+    "contato": {
+      "id": "68790116",
+      "codigo": "",
+      "nome": "Contato Teste 3",
+      "fantasia": "",
+      "tipo_pessoa": "F",
+      "cpf_cnpj": "814.134.138-38",
+      "ie": "",
+      "rg": "",
+      "im": null,
+      "tipo_negocio": "",
+      "endereco": "Rua Teste",
+      "numero": "123",
+      "complemento": "sala 2",
+      "bairro": "Teste",
+      "cep": "95.700-000",
+      "cidade": "Bento Gonçalves",
+      "uf": "RS",
+      "pais": "",
+      "endereco_cobranca": "",
+      "numero_cobranca": "",
+      "complemento_cobranca": "",
+      "bairro_cobranca": "",
+      "cep_cobranca": "",
+      "cidade_cobranca": "",
+      "uf_cobranca": " ",
+      "contatos": "Pessoa Teste",
+      "fone": "(54) 3055-3808",
+      "fax": "",
+      "celular": "",
+      "email": "teste@teste.com.br",
+      "email_nfe": "",
+      "site": "",
+      "estado_civil": "0",
+      "profissao": "",
+      "sexo": "",
+      "data_dascimento": "",
+      "naturalidade": "",
+      "nome_pai": "",
+      "cpf_pai": "",
+      "nome_mae": "",
+      "cpf_mae": "",
+      "limite_credito": 0,
+      "situacao": "A",
+      "obs": "",
+      "tipos_contato": [
+        {
+          "tipo": "Cliente"
+        },
+        {
+          "tipo": "Fornecedor"
+        }
+      ]
+    }
+  }
+}

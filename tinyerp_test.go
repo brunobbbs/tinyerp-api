@@ -1,25 +1,78 @@
-package tinyerp
+package main
 
 import (
+	"io/ioutil"
+	"log"
+	"os"
+	"os/exec"
 	"testing"
 
-	check "gopkg.in/check.v1"
+	"github.com/stretchr/testify/assert"
+	httpmock "gopkg.in/jarcoal/httpmock.v1"
 )
 
-func Test(t *testing.T) {
-	check.TestingT(t)
+func TestMustEnv(t *testing.T) {
+	// If env variable "TEST" is not set then fatal it
+	var value string
+	key := "TEST"
+
+	if value = os.Getenv(key); value != "" {
+		os.Unsetenv(key)
+		defer func() { os.Setenv(key, value) }()
+	}
+
+	if os.Getenv("TEST_MUST_ENV") == "1" {
+		mustEnv(key)
+		return
+	}
+
+	cmd := exec.Command(os.Args[0], "-test.run=TestMustEnv")
+	cmd.Env = append(os.Environ(), "TEST_MUST_ENV=1")
+	err := cmd.Run()
+	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
+		return
+	}
+	t.Errorf("mustEnv() failed to fatal if env %q is not present", key)
 }
 
-type TinyERPSuite struct {
-	tiny *TinyERP
+func TestGetContactError(t *testing.T) {
+	assert := assert.New(t)
+	tiny := TinyERP{
+		baseURL: "https://tiny-api/test",
+		token:   "45bc28e1-24e8-41de-92fa-6bcccaf0cd80",
+		format:  "json",
+	}
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+	fixture, err := ioutil.ReadFile("./fixtures/contact-error.json")
+	if err != nil {
+		log.Fatal("Fixture file not found")
+	}
+	httpmock.RegisterResponder("POST", "https://tiny-api/test/contato.obter.php",
+		httpmock.NewStringResponder(200, string(fixture)))
+	cr, err := tiny.getContact("122334ERR")
+	assert.Nil(err)
+	assert.Equal("Erro", cr.Response.Status)
+	assert.Equal("2", cr.Response.ErrorCode)
 }
 
-var _ = check.Suite(&TinyERPSuite{})
-
-func (s *TinyERPSuite) SetUpSuite(c *check.C) {
-	s.tiny = &TinyERP{}
-}
-
-func (s *TinyERPSuite) TestWorks(c *check.C) {
-	c.Assert(s.tiny.works(), check.Equals, true)
+func TestGetContact(t *testing.T) {
+	assert := assert.New(t)
+	tiny := TinyERP{
+		baseURL: "https://tiny-api/test",
+		token:   "45bc28e1-24e8-41de-92fa-6bcccaf0cd80",
+		format:  "json",
+	}
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+	fixture, err := ioutil.ReadFile("./fixtures/contact-ok.json")
+	if err != nil {
+		log.Fatal("Fixture file not found")
+	}
+	httpmock.RegisterResponder("POST", "https://tiny-api/test/contato.obter.php",
+		httpmock.NewStringResponder(200, string(fixture)))
+	cr, err := tiny.getContact("122334456")
+	assert.Nil(err)
+	assert.Equal("OK", cr.Response.Status)
+	assert.Equal("Contato Teste 3", cr.Response.Contact.Name)
 }

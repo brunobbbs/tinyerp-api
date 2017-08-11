@@ -1,0 +1,12 @@
+{
+  "retorno": {
+    "status_processamento": "1",
+    "status": "Erro",
+    "codigo_erro": "2",
+    "erros": [
+      {
+        "erro": "token invalido"
+      }
+    ]
+  }
+}
