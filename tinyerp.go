@@ -137,16 +137,3 @@ type ContactResponse struct {
 		} `json:"contato"`
 	} `json:"retorno"`
 }
-
-func main() {
-	tinyERP := NewTinyERP()
-	c, err := tinyERP.getContact("448064541")
-	if err != nil {
-		log.Fatalln("Erro ao obter o contato. %v", err)
-	}
-	fmt.Println("Dados do contato: ")
-	fmt.Println("ID: ", c.Response.Contact.ID)
-	fmt.Println("Nome: ", c.Response.Contact.Name)
-	fmt.Println("Tipo: ", c.Response.Contact.Type)
-	fmt.Println("CPF/CNPJ: ", c.Response.Contact.CPFCNPJ)
-}
