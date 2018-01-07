@@ -1,4 +1,4 @@
-package main
+package tinyerp
 
 import (
 	"encoding/json"
@@ -110,7 +110,7 @@ func (t *TinyERP) apiURI(route string) (string, url.Values) {
 	return apiURI, v
 }
 
-func (t *TinyERP) getContact(id string) (*ContactResponse, error) {
+func (t *TinyERP) GetContact(id string) (*ContactResponse, error) {
 	uri, data := t.apiURI("contato.obter.php")
 	data.Set("id", id)
 	resp, err := http.PostForm(uri, data)

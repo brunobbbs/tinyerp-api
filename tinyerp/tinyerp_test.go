@@ -1,4 +1,4 @@
-package main
+package tinyerp
 
 import (
 	"io/ioutil"
@@ -50,7 +50,7 @@ func TestGetContactError(t *testing.T) {
 	}
 	httpmock.RegisterResponder("POST", "https://tiny-api/test/contato.obter.php",
 		httpmock.NewStringResponder(200, string(fixture)))
-	cr, err := tiny.getContact("122334ERR")
+	cr, err := tiny.GetContact("122334ERR")
 	assert.Nil(err)
 	assert.Equal("Erro", cr.Response.Status)
 	assert.Equal("2", cr.Response.ErrorCode)
@@ -71,7 +71,7 @@ func TestGetContact(t *testing.T) {
 	}
 	httpmock.RegisterResponder("POST", "https://tiny-api/test/contato.obter.php",
 		httpmock.NewStringResponder(200, string(fixture)))
-	cr, err := tiny.getContact("122334456")
+	cr, err := tiny.GetContact("122334456")
 	assert.Nil(err)
 	assert.Equal("OK", cr.Response.Status)
 	assert.Equal("Contato Teste 3", cr.Response.Contact.Name)

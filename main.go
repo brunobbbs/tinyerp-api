@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 	"log"
+
+	"github.com/brunobbbs/tinyerp-api/tinyerp"
 )
 
 func main() {
-	t := NewTinyERP()
-	c, err := t.getContact("448064541")
+	t := tinyerp.NewTinyERP()
+	c, err := t.GetContact("448064541")
 	if err != nil {
 		log.Printf("Erro ao obter o contato. %v", err)
 	}
