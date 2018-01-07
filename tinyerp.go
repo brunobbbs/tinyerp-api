@@ -102,17 +102,22 @@ func mustEnv(key string) (value string) {
 	return value
 }
 
-func (t *TinyERP) getContact(id string) (*ContactResponse, error) {
+func (t *TinyERP) apiURI(route string) (string, url.Values) {
 	v := url.Values{}
 	v.Set("token", t.token)
 	v.Set("formato", t.format)
-	v.Set("id", id)
-	target := fmt.Sprintf("%s/contato.obter.php", t.baseURL)
-	resp, err := http.PostForm(target, v)
-	defer resp.Body.Close()
+	apiURI := fmt.Sprintf("%s/%s", t.baseURL, route)
+	return apiURI, v
+}
+
+func (t *TinyERP) getContact(id string) (*ContactResponse, error) {
+	uri, data := t.apiURI("contato.obter.php")
+	data.Set("id", id)
+	resp, err := http.PostForm(uri, data)
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("search query failed: %s", resp.Status)
 	}
