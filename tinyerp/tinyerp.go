@@ -82,7 +82,6 @@ func ErrorCode(code int) string {
 type TinyERP struct {
 	baseURL string
 	token   string
-	id      string
 	format  string
 }
 
