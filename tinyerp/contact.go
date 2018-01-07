@@ -21,7 +21,7 @@ type ContactResponse struct {
 	} `json:"retorno"`
 }
 
-func (t *TinyERP) GetContact(id string) (*ContactResponse, error) {
+func (t *tinyERP) GetContact(id string) (*ContactResponse, error) {
 	uri, data := t.apiURI("contato.obter.php")
 	data.Set("id", id)
 	resp, err := http.PostForm(uri, data)

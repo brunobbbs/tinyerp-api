@@ -11,7 +11,7 @@ import (
 
 func TestGetContact(t *testing.T) {
 	assert := assert.New(t)
-	tiny := TinyERP{
+	tiny := tinyERP{
 		baseURL: "https://tiny-api/test",
 		token:   "45bc28e1-24e8-41de-92fa-6bcccaf0cd80",
 		format:  "json",
@@ -32,7 +32,7 @@ func TestGetContact(t *testing.T) {
 
 func TestGetContactError(t *testing.T) {
 	assert := assert.New(t)
-	tiny := TinyERP{
+	tiny := tinyERP{
 		baseURL: "https://tiny-api/test",
 		token:   "45bc28e1-24e8-41de-92fa-6bcccaf0cd80",
 		format:  "json",

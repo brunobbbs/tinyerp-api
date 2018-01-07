@@ -77,15 +77,15 @@ func ErrorCode(code int) string {
 	return errorCode[code]
 }
 
-type TinyERP struct {
+type tinyERP struct {
 	baseURL string
 	token   string
 	format  string
 }
 
-func NewTinyERP() *TinyERP {
+func NewTinyERP() *tinyERP {
 	token := mustEnv("TINY_TOKEN_API")
-	return &TinyERP{
+	return &tinyERP{
 		baseURL: "https://api.tiny.com.br/api2",
 		token:   token,
 		format:  "json",
@@ -99,7 +99,7 @@ func mustEnv(key string) (value string) {
 	return value
 }
 
-func (t *TinyERP) apiURI(route string) (string, url.Values) {
+func (t *tinyERP) apiURI(route string) (string, url.Values) {
 	v := url.Values{}
 	v.Set("token", t.token)
 	v.Set("formato", t.format)
